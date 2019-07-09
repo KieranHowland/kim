@@ -1,0 +1,49 @@
+KIM API TEXTS / REQUEST EXAMPLES (request_examples.txt)
+
+----------------------------------------------------------------------------------------
+
+GET -- /uploads/
+
+REQUEST:
+ curl https://kim.kieranhowland.co.uk/api/uploads
+
+RESPONSE:
+ {
+   "status":200,
+   "data":{
+     "uploads":500
+   }
+ }
+
+----------------------------------------------------------------------------------------
+
+GET -- /datauri/(id)
+
+REQUEST:
+ curl https://kim.kieranhowland.co.uk/api/datauri/BMebfPsEIFOOGN7QVN4znEesd92jxxqS
+
+RESPONSE:
+ {
+   "status":"success",
+   "data":{
+     "uri":"data:image/png;base64..."
+   }
+ }
+
+----------------------------------------------------------------------------------------
+
+POST -- /upload/
+
+REQUEST:
+ curl -X POST -F "image=@dab.png" https://kim.kieranhowland.co.uk/api/upload
+
+RESPONSE:
+ {
+   "status":"success",
+   "data":{
+     "image_id":"DQNMMxSm8SbYSJVt15cecbke8LqsidfE",
+     "filetype":"png"
+   }
+ }
+
+----------------------------------------------------------------------------------------

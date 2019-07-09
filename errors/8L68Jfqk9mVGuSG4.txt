@@ -1,0 +1,16 @@
+Error ID: 8L68Jfqk9mVGuSG4
+Error Time: 2019-03-01 19:37:39
+
+---START OF ERROR---
+ReferenceError: tokenSession is not defined
+    at router.use (/home/kie/Development/KIM/admin.js:21:5)
+    at Layer.handle [as handle_request] (/home/kie/Development/KIM/node_modules/express/node_modules/router/lib/layer.js:102:15)
+    at trim_prefix (/home/kie/Development/KIM/node_modules/express/node_modules/router/index.js:330:13)
+    at /home/kie/Development/KIM/node_modules/express/node_modules/router/index.js:294:7
+    at Function.process_params (/home/kie/Development/KIM/node_modules/express/node_modules/router/index.js:349:12)
+    at next (/home/kie/Development/KIM/node_modules/express/node_modules/router/index.js:285:10)
+    at router.use (/home/kie/Development/KIM/admin.js:15:3)
+    at Layer.handle [as handle_request] (/home/kie/Development/KIM/node_modules/express/node_modules/router/lib/layer.js:102:15)
+    at trim_prefix (/home/kie/Development/KIM/node_modules/express/node_modules/router/index.js:330:13)
+    at /home/kie/Development/KIM/node_modules/express/node_modules/router/index.js:294:7
+----END OF ERROR----

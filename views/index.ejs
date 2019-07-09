@@ -1,0 +1,185 @@
+<%- '<!DOCTYPE html>' %>
+<html lang="en">
+
+<head>
+  <%- include('partials/metadata') %>
+  <title>Kie's Image Machine</title>
+  <style media="screen">
+    @font-face {
+      font-family: 'Google Sans';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Google Sans Regular'), local('GoogleSans-Regular'), url(/fonts/google-sans.woff2)format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    @keyframes onLoad {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    body,
+    html {
+      overflow-x: hidden;
+      animation: onLoad .2s ease 1;
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Google Sans', sans-serif;
+      background: rgb(15, 15, 15);
+      color: rgb(255, 255, 255);
+      text-align: center;
+      user-select: none;
+      -moz-user-select: none;
+    }
+
+    .main-cont {
+      display: inline;
+      position: fixed;
+      top: 50vh;
+      left: 50vw;
+      transform: translate(-50%, -50%);
+    }
+
+    .drag-cont {
+      box-sizing: border-box;
+      min-width: 100%;
+      min-height: 100%;
+      position: fixed;
+      background-color: rgb(51, 51, 51);
+      border: 1px solid transparent;
+      box-shadow: inset 0 0 0 rgba(255, 255, 255, 0.5);
+      pointer-events: none;
+      opacity: 0;
+      transition: all .2s ease-in-out;
+      z-index: 999;
+    }
+
+    .drag-cont-active {
+      box-shadow: inset 0 0 32px 4px rgb(255, 255, 255);
+      opacity: .5;
+      transition: all .2s ease-in-out;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    input[type=file] {
+      position: absolute;
+      top: -1000px;
+    }
+
+    label {
+      border-radius: 16px;
+      background-color: rgb(25, 25, 25);
+      display: inline-block;
+      transition: all .2s ease-in-out;
+      padding: 8px 32px;
+    }
+
+    label:hover {
+      cursor: pointer;
+      background-color: rgb(66, 176, 244);
+      color: rgb(0, 0, 0);
+      box-shadow: 0 10px 16px -10px rgb(0, 0, 0, 0.5);
+    }
+
+    a {
+      text-decoration: none;
+      color: rgb(66, 176, 244);
+      transition: all .2s ease-in-out;
+      border-bottom: 1px solid transparent;
+      padding: 2px 6px;
+      border-radius: 8px;
+      background-color: rgb(25, 25, 25);
+      margin-left: 4px;
+      margin-right: 4px;
+    }
+
+    a:hover {
+      box-shadow: 0 10px 16px -10px rgb(0, 0, 0, 0.5);
+      background-color: rgb(66, 176, 244);
+      color: rgb(25, 25, 25);
+    }
+
+    @media (max-width :580px) {
+      .main-cont {
+        top: 45vh;
+        width: 100%;
+      }
+    }
+  </style>
+  <script>
+    window.onload = function () {
+      var cont = document.getElementById("drag-cont");
+      var imgSlct = document.getElementById("imageSelect");
+      var imgSlctTxt = document.getElementById("imageSelectText");
+      var form = document.getElementById("form");
+      imgSlct.value = "";
+      imgSlct.addEventListener("change", function () {
+        if (0 < imageSelect.files.length) {
+          imgSlctTxt.innerHTML = "Uploading Image...";
+          form.submit();
+        }
+      });
+      document.addEventListener("dragover", function () {
+        event.preventDefault();
+        event.stopPropagation();
+        cont.classList.add("drag-cont-active");
+        event.dataTransfer.dropEffect = "copy";
+      });
+      document.addEventListener("dragleave", function () {
+        cont.classList.remove("drag-cont-active");
+      });
+      document.addEventListener("drop", function (event) {
+        return event.preventDefault();
+        cont.classList.remove("drag-cont-active");
+        if (event.dataTransfer.files[0] && 0 < event.dataTransfer.files[0].size) {
+          imgSlct.files = event.dataTransfer.files;
+          imgSlctTxt.innerHTML = "Uploading Image...";
+          form.submit();
+        }
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <div class="main-cont">
+    <% if (Math.floor(Math.random() * 101) > 99) { %>
+      <p style="font-size:26px">Amber Is Super Duper Gay</p>
+    <% } else { %>
+      <p style="font-size:26px">Kie's Image Machine</p>
+    <% } %>
+    <p style="font-size:12px">Completely anonymous image hosting</p><br>
+      <form action="upload" method="post" enctype="multipart/form-data" id="form">
+        <label>
+          <input type="file" name="image" accept=".png,.jpg,.jpeg,.gif" id="imageSelect">
+          <span style="font-size:16px" id="imageSelectText">Upload Image</span>
+          <p style="font-size:10px">Supported File Types: <b>png, jpg, jpeg, gif</b></p>
+        </label>
+      </form><br>
+      <div style="font-size:14px">
+        <a draggable="false" href="/api" rel="noreferrer">API</a>
+        <a draggable="false" href="https://discord.gg/mDJDvAP" target="_blank" rel="noreferrer">Discord</a>
+        <a draggable="false" href="https://twitter.com/KieIsWillSmith" target="_blank" rel="noreferrer">Twitter</a>
+        <a draggable="false" href="https://paypal.me/KieranHowland" target="_blank" rel="noreferrer">Donate</a>
+      </div>
+    </main>
+  </div>
+  <div class="drag-cont" id="drag-cont">
+    <p style="font-size:32px;margin-top:100px">Drop Image To Upload</p>
+  </div>
+</body>
+
+</html>
+<%- include('partials/generated') %>

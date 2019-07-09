@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://kim.kieranhowland.cc/sitemap.xml

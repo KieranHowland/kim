@@ -1,0 +1,217 @@
+<%- '<!DOCTYPE html>' %>
+<html lang="en">
+
+<head>
+  <%- include('partials/metadata') %>
+  <title>API Documentation</title>
+  <style media="screen">
+    @font-face {
+      font-family: 'Google Sans';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Google Sans Regular'), local('GoogleSans-Regular'), url(/fonts/google-sans.woff2)format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 300;
+      src: local('Roboto Mono Light'), local('RobotoMono-Light'), url(/fonts/roboto-mono.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD
+    }
+
+    @keyframes onLoad {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    body,
+    html {
+      height: 100%;
+      width: 100%;
+      animation: onLoad .2s ease 1;
+    }
+
+    body {
+      margin: 0;
+      background: rgb(15, 15, 15);
+      font-family: 'Google Sans', sans-serif;
+      color: rgb(255, 255, 255);
+      user-select: none;
+      -moz-user-select: none;
+      padding: 5%;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    p {
+      margin: 0;
+      padding-bottom: 8px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td,
+    th {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid hsl(0, 0%, 47%);
+    }
+
+    tr {
+      transition: all .2s ease-in-out;
+    }
+
+    tr:hover {
+      background-color: rgb(45, 45, 45);
+    }
+
+    code {
+      font-family: 'Roboto Mono', monospace;
+      white-space: pre;
+      font-size: 12px;
+      background-color: rgb(25, 25, 25);
+      user-select: text;
+      -moz-user-select: text;
+      border-radius: 8px;
+      padding: 6px 8px;
+      display: block;
+      box-shadow: 0 10px 16px -10px rgb(0, 0, 0, 0.5);
+    }
+
+    .inline-code {
+      font-family: 'Roboto Mono', monospace;
+      white-space: pre;
+      font-size: 12px;
+      font-size: initial;
+      background-color: rgb(25, 25, 25);
+      border-radius: 8px;
+      user-select: text;
+      -moz-user-select: text;
+      padding: 2px 6px;
+      display: inline;
+    }
+
+    a {
+      text-decoration: none;
+      color: rgb(66, 176, 244);
+      transition: all .2s ease-in-out;
+      border-bottom: 1px solid transparent;
+      padding: 2px 6px;
+      border-radius: 8px;
+      background-color: rgb(25, 25, 25);
+      margin-left: 4px;
+      margin-right: 4px;
+    }
+
+    a:hover {
+      box-shadow: 0 10px 16px -10px rgb(0, 0, 0, 0.5);
+      background-color: rgb(66, 176, 244);
+      color: rgb(25, 25, 25);
+    }
+
+    ::-moz-selection,
+    ::selection {
+      background-color: rgba(128, 128, 128, 0.502);
+    }
+  </style>
+</head>
+
+<body>
+  <div style="margin-bottom:32px">
+    <p style="font-size:26px">KIM API Documentation</p>
+    <a draggable="false" href="/" style="font-size:12px" rel="noreferrer">&lt; Back To Home</a><br><br><br>
+    <p>It is recommended to use the NPM package <a draggable="false" href="https://www.npmjs.com/package/kim-api"
+        target="_blank" rel="noreferrer">kim-api</a> for API use within NodeJS</p>
+    <p>Documentation in plaintext format: <a draggable="false" href="/apitexts/directory.txt" rel="noreferrer">API
+        texts</a> (more detailed)</p><br>
+    <p>Base URL: <code class="inline-code">https://kim.kieranhowland.co.uk/api/(path)</code></p>
+    <p>Uploads Base URL: <code class="inline-code">https://kim.kieranhowland.co.uk/uploads/(id)</code></p><br>
+    <table style="width:100%">
+      <tr>
+        <th>Method</th>
+        <th>Path</th>
+        <th>Example Response</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/uploads/</td>
+        <td>
+          <p>Request:</p>
+          <code>curl https://kim.kieranhowland.co.uk/api/uploads</code><br>
+          <p>Response:</p>
+          <code>{
+  "status":200,
+  "data":{
+    "uploads":500
+  }
+}</code>
+        </td>
+        <td>Returns the total upload count</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/datauri/(Image ID)</td>
+        <td>
+          <p>Request:</p>
+          <code>curl https://kim.kieranhowland.co.uk/api/datauri/BMebfPsEIFOOGN7QVN4znEesd92jxxqS</code><br>
+          <p>Response:</p>
+          <code>{
+  "status":200,
+  "data":{
+    "uri":"data:image/png;base64..."
+  }
+}</code>
+        </td>
+        <td>Returns data URI for the specified image</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/meta/(Image ID)</td>
+        <td>
+          <p>Request:</p>
+          <code>curl https://kim.kieranhowland.co.uk/api/meta/CZD16C3kHvAhiC2PD6r8FQWmiqse82RS</code><br>
+          <p>Response:</p>
+          <code>{
+  "status":200,
+  "data":{
+    "uploadedAt":1551415661,
+    "filetype":"png"
+  }
+}</code>
+        </td>
+        <td>Gets meta data on the specified image (Some images don't have meta data stored)</td>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td>/upload/</td>
+        <td>
+          <p>Request:</p>
+          <code>curl -X POST -F "image=@dab.png" https://kim.kieranhowland.co.uk/api/upload</code><br>
+          <p>Response:</p>
+          <code>{
+  "status":200,
+  "data":{
+    "image_id":"DQNMMxSm8SbYSJVt15cecbke8LqsidfE",
+    "filetype":"png"
+  }
+}</code>
+        </td>
+        <td>Uploads an image and returns the ID and filetype</td>
+      </tr>
+    </table>
+  </div>
+</body>
+
+</html>
+<%- include('partials/generated') %>

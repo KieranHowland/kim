@@ -1,0 +1,24 @@
+Error ID: s7EaqNfU84lvizeA
+Error Time: 2019-02-27 05:57:47
+
+---START OF ERROR---
+ReferenceError: /home/kie/Development/KIM/views/meta.ejs:6
+    4| <head>
+    5|   <%- include('partials/metadata') %>
+ >> 6|   <title><%= info.title %></title>
+    7|   <style media="screen">
+    8|     @font-face {
+    9|       font-family: Montserrat;
+
+info is not defined
+    at eval (eval at compile (/home/kie/Development/KIM/node_modules/ejs/lib/ejs.js:618:12), <anonymous>:15:26)
+    at returnedFn (/home/kie/Development/KIM/node_modules/ejs/lib/ejs.js:653:17)
+    at tryHandleCache (/home/kie/Development/KIM/node_modules/ejs/lib/ejs.js:251:36)
+    at View.exports.renderFile [as engine] (/home/kie/Development/KIM/node_modules/ejs/lib/ejs.js:482:10)
+    at View.render (/home/kie/Development/KIM/node_modules/express/lib/view.js:139:8)
+    at tryRender (/home/kie/Development/KIM/node_modules/express/lib/application.js:626:10)
+    at Function.render (/home/kie/Development/KIM/node_modules/express/lib/application.js:578:3)
+    at ServerResponse.render (/home/kie/Development/KIM/node_modules/express/lib/response.js:869:7)
+    at app.get (/home/kie/Development/KIM/main.js:80:21)
+    at Layer.handle [as handle_request] (/home/kie/Development/KIM/node_modules/express/node_modules/router/lib/layer.js:102:15)
+----END OF ERROR----

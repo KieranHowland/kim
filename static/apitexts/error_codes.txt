@@ -1,0 +1,12 @@
+KIM API TEXTS / ERROR CODES (error_codes.txt)
+
++----------------------+----------------------------------------------------------+
+| ERROR CODE           | DESCRIPTION                                              |
++----------------------+----------------------------------------------------------+
+| internalServerError  | An error occured server side, usually not user fixable   |
+| invalidFileExtension | The uploaded image has an unsupported file extension     |
+| imageNotFound        | The requested image does not exist                       |
+| imageTooLarge        | The uploaded image exceeds the max file size limit       |
+| tooManyImages        | The request contains more than one image                 |
+| requestBodyInvalid   | The request body is not valid                            |
++----------------------+----------------------------------------------------------+
