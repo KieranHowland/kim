@@ -9,7 +9,7 @@
       font-family: 'Google Sans';
       font-style: normal;
       font-weight: 400;
-      src: local('Google Sans Regular'), local('GoogleSans-Regular'), url(/fonts/google-sans.woff2)format('woff2');
+      src: local('Google Sans Regular'), local('GoogleSans-Regular'), url(/static/fonts/google-sans.woff2)format('woff2');
       unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
     }
 
@@ -17,7 +17,7 @@
       font-family: 'Roboto Mono';
       font-style: normal;
       font-weight: 300;
-      src: local('Roboto Mono Light'), local('RobotoMono-Light'), url(/fonts/roboto-mono.woff2) format('woff2');
+      src: local('Roboto Mono Light'), local('RobotoMono-Light'), url(/static/fonts/roboto-mono.woff2) format('woff2');
       unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD
     }
 
@@ -144,24 +144,25 @@
         <th>Description</th>
       </tr>
       <tr>
-        <td>GET</td>
-        <td>/uploads/</td>
+        <td>POST</td>
+        <td>/upload/</td>
         <td>
           <p>Request:</p>
-          <code>curl https://kim.kieranhowland.co.uk/api/uploads</code><br>
+          <code>curl -X POST -F "image=@cat.png" https://kim.kieranhowland.co.uk/api/upload</code><br>
           <p>Response:</p>
           <code>{
   "status":200,
   "data":{
-    "uploads":500
+    "image_id":"DQNMMxSm8SbYSJVt15cecbke8LqsidfE",
+    "filetype":"png"
   }
 }</code>
         </td>
-        <td>Returns the total upload count</td>
+        <td>Uploads an image and returns the ID and filetype</td>
       </tr>
       <tr>
         <td>GET</td>
-        <td>/datauri/(Image ID)</td>
+        <td>/uri/(ID)</td>
         <td>
           <p>Request:</p>
           <code>curl https://kim.kieranhowland.co.uk/api/datauri/BMebfPsEIFOOGN7QVN4znEesd92jxxqS</code><br>
@@ -177,7 +178,7 @@
       </tr>
       <tr>
         <td>GET</td>
-        <td>/meta/(Image ID)</td>
+        <td>/meta/(ID)</td>
         <td>
           <p>Request:</p>
           <code>curl https://kim.kieranhowland.co.uk/api/meta/CZD16C3kHvAhiC2PD6r8FQWmiqse82RS</code><br>
@@ -191,23 +192,6 @@
 }</code>
         </td>
         <td>Gets meta data on the specified image (Some images don't have meta data stored)</td>
-      </tr>
-      <tr>
-        <td>POST</td>
-        <td>/upload/</td>
-        <td>
-          <p>Request:</p>
-          <code>curl -X POST -F "image=@dab.png" https://kim.kieranhowland.co.uk/api/upload</code><br>
-          <p>Response:</p>
-          <code>{
-  "status":200,
-  "data":{
-    "image_id":"DQNMMxSm8SbYSJVt15cecbke8LqsidfE",
-    "filetype":"png"
-  }
-}</code>
-        </td>
-        <td>Uploads an image and returns the ID and filetype</td>
       </tr>
     </table>
   </div>

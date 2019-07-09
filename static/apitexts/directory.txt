@@ -1,8 +1,0 @@
-KIM API TEXTS / API TEXTS DIRECTORY (directory.txt)
-
-BASE URL: https://kim.kieranhowland.co.uk/apitexts/(text).txt
-
-TEXTS:
- ERROR CODES: error_codes
- REQUEST EXAMPLES: request_examples
- RESPONSE EXAMPLES: response_examples
