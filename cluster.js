@@ -1,24 +1,21 @@
-const chalk = require('chalk');
 const cluster = require('cluster');
 const os = require('os');
 
-if (cluster.isMaster) {
-  os.cpus().forEach(function () {
-    cluster.fork();
-    cluster.fork();
-  });
+if (!cluster.isMaster) return require('./index');
 
-  cluster.on('listening', function (worker) {
-    console.log(chalk.yellow('[Cluster] ') + chalk.green(`Worker ${worker.id} listening.`));
-  });
+os.cpus().forEach(() => {
+  cluster.fork();
+  cluster.fork();
+});
 
-  cluster.on('disconnect', function (worker) {
-    console.log(chalk.yellow('[Cluster] ') + chalk.red(`Worker ${worker.id} disconnected.`));
-  });
+cluster.on('listening', (worker) => {
+  console.log(`${worker.id}-${worker.process.pid} listening...`);
+});
 
-  cluster.on('exit', function (worker) {
-    console.log(chalk.yellow('[Cluster] ') + chalk.red(`Worker ${worker.id} died, respawning...`));
-  });
-} else {
-  require('./index.js/index.js');
-}
+cluster.on('disconnect', (worker) => {
+  console.log(`${worker.id}-${worker.process.pid} disconnected.`);
+});
+
+cluster.on('exit', (worker) => {
+  console.log(`${worker.id}-${worker.process.pid} respawning...`);
+});

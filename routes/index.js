@@ -1,12 +1,10 @@
 const express = require('express');
 const sharp = require('sharp');
+const randomstring = require('randomstring');
+const fs = require('fs');
+const jsonFile = require('jsonfile');
 
 const router = express.Router();
-
-router.use((req, res, next) => {
-  console.log(`> Request Recieved\n  Path: ${req.path}\n  Method: ${req.method}`);
-  next();
-});
 
 router.get('/', (req, res) => {
   return res.status(200).render('index');
@@ -44,11 +42,11 @@ router.post('/upload', (req, res) => {
 
   while (true) {
     req.files.image.id = randomstring.generate(32);
-    if (!fs.existsSync(`${__dirname}/uploads/${req.files.image.id}.${req.files.image.name.split('.').pop().toLowerCase() === 'gif' ? 'gif' : 'png'}`)) {
+    if (!fs.existsSync(`${__dirname}/../uploads/${req.files.image.id}.${req.files.image.name.split('.').pop().toLowerCase() === 'gif' ? 'gif' : 'png'}`)) {
       sharp(req.files.image.data)
-        .toFile(`${__dirname}/uploads/${req.files.image.id}.${req.files.image.name.split('.').pop().toLowerCase() === 'gif' ? 'gif' : 'png'}`)
+        .toFile(`${__dirname}/../uploads/${req.files.image.id}.${req.files.image.name.split('.').pop().toLowerCase() === 'gif' ? 'gif' : 'png'}`)
         .then(() => {
-          jsonFile.writeFileSync(`${__dirname}/uploads/meta/${req.files.image.id}.json`,
+          jsonFile.writeFileSync(`${__dirname}/../uploads/meta/${req.files.image.id}.json`,
           {
             uploadedAt: Math.floor(new Date() / 1000),
             filetype: req.files.image.name.split('.').pop().toLowerCase() === 'gif' ? 'gif' : 'png'
@@ -65,9 +63,9 @@ router.post('/upload', (req, res) => {
 
 router.get('/uploads/:id', (req, res) => {
   if (fs.existsSync(`${__dirname}/uploads/${req.params.id}.png`)) {
-    return res.status(200).sendFile(`${__dirname}/uploads/${req.params.id}.png`);
-  } else if (fs.existsSync(`${__dirname}/uploads/${req.params.id}.gif`)) {
-    return res.status(200).sendFile(`${__dirname}/uploads/${req.params.id}.gif`);
+    return res.status(200).sendFile(`${__dirname}/../uploads/${req.params.id}.png`);
+  } else if (fs.existsSync(`${__dirname}/../uploads/${req.params.id}.gif`)) {
+    return res.status(200).sendFile(`${__dirname}/../uploads/${req.params.id}.gif`);
   } else {
     res.status(404).render('info',
     {
@@ -80,8 +78,8 @@ router.get('/uploads/:id', (req, res) => {
 });
 
 router.get('/meta/:id', (req, res) => {
-  if (fs.existsSync(`${__dirname}/uploads/meta/${req.params.id}.json`)) {
-    let meta = jsonFile.readFileSync(`${__dirname}/uploads/meta/${req.params.id}.json`);
+  if (fs.existsSync(`${__dirname}/../uploads/meta/${req.params.id}.json`)) {
+    let meta = jsonFile.readFileSync(`${__dirname}/../uploads/meta/${req.params.id}.json`);
     res.status(200).render('meta',
     {
       meta: {
@@ -109,22 +107,6 @@ router.use((req, res, next) => {
       description: `The server couldn't find anything at <b>${req.path}</b>`
     }
   });
-});
-
-router.use((err, req, res, next) => {
-  err.id = randomstring.generate(16);
-  while (true) {
-    if (!fs.existsSync(`${__dirname}/errors/${err.id}.txt`)) {
-      fs.writeFile(`${__dirname}/errors/${err.id}.txt`, `Error ID: ${err.id}\nError Time: ${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}\n\n---START OF ERROR---\n${err.stack}\n----END OF ERROR----`, (err) => {
-        console.error(err.stack);
-      });
-      res.status(500).send(`An internal server error occured, please copy the code below and send it to <b>Kie#0001</b> (Discord) or <b>@KieIsWillSmith</b> (Twitter)...<br><br>${id}`);
-      break;
-    } else {
-      err.id = randomstring.generate(16);
-      continue;
-    }
-  }
 });
 
 module.exports = router;

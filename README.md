@@ -1,1 +1,1 @@
-# kim - Kieran's Image Machine
+# KIM - Kieran's Image Machine

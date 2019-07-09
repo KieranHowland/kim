@@ -4,21 +4,22 @@ services:
   server:
     restart: unless-stopped
     build: "."
+    networks:
+      - web
     expose:
       - "8001"
-    networks:
-      - proxy
-      - default
+    volumes:
+      - ./uploads:/app/uploads
+      - ./views:/app/views
+      - ./public:/app/public
     labels:
       - "traefik.docker.network=proxy"
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:kim.kieranhowland.co.uk"
+      - "traefik.frontend.rule=Host:kim.kieranhowland.cc"
       - "traefik.port=8001"
       - "traefik.protocol=http"
       - "traefik.frontend.entryPoints=http,https"
-    volumes:
-      - /home/main/KIM/uploads:/app/uploads
-      - /home/main/KIM/views:/app/views
+
 networks:
-  proxy:
+  web:
     external: true
