@@ -1,0 +1,110 @@
+@font-face {
+  font-family: 'Google Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Google Sans Regular'), local('GoogleSans-Regular'), url(/static/fonts/google-sans.woff2)format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@keyframes onLoad {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+p {
+  margin: 0;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 32px;
+  animation: onLoad .1s ease-in-out 1;
+  background: rgb(29, 33, 39);
+  font-family: 'Google Sans', sans-serif;
+  color: rgb(255, 255, 255);
+  user-select: none;
+  -moz-user-select: none;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+div#app {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+p#title {
+  font-size: 1.5em;
+  margin: 16px 0 16px 0;
+}
+
+p#info {
+  font-size: 1em;
+  margin: 0 0 8px 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid rgb(119, 119, 119);
+}
+
+tr {
+  transition: .2s ease-in-out;
+}
+
+tr:hover {
+  background: rgb(38, 44, 51);
+}
+
+code {
+  font-family: 'Lucida Sans Typewriter', monospace;
+  white-space: pre;
+  font-size: 12px;
+  background: rgb(40, 46, 54);
+  user-select: text;
+  -moz-user-select: text;
+  border-radius: 4px;
+  padding: 6px 8px;
+  display: block;
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.3);
+}
+
+code#inline {
+  font-family: 'Lucida Sans Typewriter', monospace;
+  font-size: 0.9em;
+  user-select: text;
+  -moz-user-select: text;
+  padding: 2px 6px;
+  display: inline;
+}
+
+a {
+  background: rgb(39, 44, 53);
+  color: rgb(52, 152, 219);
+  font-size: 0.9em;
+  margin: 0 4px 0 4px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all .2s ease-in-out;
+}
+
+a:hover {
+  background: rgb(52, 152, 219);
+  color: rgb(53, 59, 72);
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.3);
+}

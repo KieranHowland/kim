@@ -1,0 +1,103 @@
+@font-face {
+font-family: 'Google Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Google Sans Regular'), local('GoogleSans-Regular'), url(/static/fonts/google-sans.woff2)format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@keyframes onLoad {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+body, html {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  animation: onLoad .1s ease-in-out 1;
+}
+
+body {
+  background: rgb(44, 62, 80);
+  font-family: 'Google Sans', sans-serif;
+  color: rgb(255, 255, 255);
+  user-select: none;
+  -moz-user-select: none;
+  padding: 5%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid rgb(119, 119, 119);
+}
+
+tr {
+  transition: all .2s ease-in-out;
+}
+
+tr:hover {
+  background-color: rgb(45, 45, 45);
+}
+
+code {
+  font-family: 'Roboto Mono', monospace;
+  white-space: pre;
+  font-size: 12px;
+  background-color: rgb(25, 25, 25);
+  user-select: text;
+  -moz-user-select: text;
+  border-radius: 8px;
+  padding: 6px 8px;
+  display: block;
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.3);
+}
+
+code.inline {
+  font-family: 'Roboto Mono', monospace;
+  background-color: rgb(25, 25, 25);
+  font-size: 0.8em;
+  white-space: pre;
+  font-size: initial;
+  border-radius: 8px;
+  user-select: text;
+  -moz-user-select: text;
+  padding: 2px 6px;
+  display: inline;
+}
+
+a {
+  background-color: rgb(52, 73, 94);
+  color: rgb(52, 152, 219);
+  font-size: 0.8em;
+  padding: 2px 4px;
+  text-decoration: none;
+  transition: all .2s ease-in-out;
+  border-bottom: 1px solid transparent;
+  border-radius: 4px;
+  margin: 0 4px 0 4px;
+}
+
+a:hover {
+  background-color: rgb(52, 152, 219);
+  color: rgb(44, 62, 80);
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.3);
+}
+
+::-moz-selection,
+::selection {
+  background-color: rgba(128, 128, 128, 0.5);
+}
