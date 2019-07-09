@@ -10,8 +10,10 @@
     "helmet": "^3.18.0",
     "html-minifier": "^4.0.0",
     "jsonfile": "^5.0.0",
+    "node-gyp": "^5.0.2",
     "randomstring": "^1.1.5",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "sharp": "^0.22.1"
   },
   "devDependencies": {},
   "author": "Kieran Howland",

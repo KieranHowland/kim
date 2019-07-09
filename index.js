@@ -1,24 +1,23 @@
-const chalk = require('chalk');
-const cluster = require('cluster');
-const os = require('os');
+const express = require('express');
+const randomstring = require('randomstring');
+const fs = require('fs');
+const jsonfile = require('jsonfile');
 
-if (cluster.isMaster) {
-  os.cpus().forEach(function () {
-    cluster.fork();
-    cluster.fork();
-  });
+const settings = require('./settings');
+const app = express();
 
-  cluster.on('listening', function (worker) {
-    console.log(chalk.yellow('[Cluster] ') + chalk.green(`Worker ${worker.id} listening.`));
-  });
+app.set('view engine', 'ejs');
 
-  cluster.on('disconnect', function (worker) {
-    console.log(chalk.yellow('[Cluster] ') + chalk.red(`Worker ${worker.id} disconnected.`));
-  });
+app.use(require('express-fileupload')({
+  safeFileNames: true,
+  preserveExtension: 10,
+  limits: { fileSize: 20 * 1024 * 1024 }
+}));
+app.use(require('helmet')());
+app.use(require('compression')());
+app.use('/static', express.static('./static'));
 
-  cluster.on('exit', function (worker) {
-    console.log(chalk.yellow('[Cluster] ') + chalk.red(`Worker ${worker.id} died, respawning...`));
-  });
-} else {
-  require('./app.js');
-}
+app.use('/api', require('./routes/api'));
+app.use('/', require('./routes/index'));
+
+app.listen(settings.port, '0.0.0.0');
