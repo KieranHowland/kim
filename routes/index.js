@@ -1,10 +1,11 @@
 const express = require('express');
+const random = require('randomstring');
 const sharp = require('sharp');
-const randomstring = require('randomstring');
 const fs = require('fs');
 const jsonFile = require('jsonfile');
 
 const router = express.Router();
+const settings = require('../settings');
 
 router.get('/', (req, res) => {
   return res.status(200).render('index');
@@ -25,7 +26,8 @@ router.post('/upload', (req, res) => {
       description: 'You can only upload <b>1</b> image at a time, please try again.'
     }
   });
-  if (settings.acceptedFiletypes.indexOf(req.files.image.name.split('.').pop().toLowerCase()) > -1) return res.status(400).render('info',
+  console.log(!settings.accepted.indexOf(req.files.image.name.split('.').pop().toLowerCase()) > -1);
+  if (settings.accepted.indexOf(req.files.image.name.split('.').pop().toLowerCase()) < 0) return res.status(400).render('info',
   {
     info: {
       title: 'Unaccepted File Type',
@@ -41,12 +43,12 @@ router.post('/upload', (req, res) => {
   });
 
   while (true) {
-    req.files.image.id = randomstring.generate(32);
-    if (!fs.existsSync(`${__dirname}/../uploads/${req.files.image.id}.${req.files.image.name.split('.').pop().toLowerCase() === 'gif' ? 'gif' : 'png'}`)) {
+    req.files.image.id = random.generate(32);
+    if (!fs.existsSync(`${settings.dir.uploads}/${req.files.image.id}.${req.files.image.name.split('.').pop().toLowerCase() === 'gif' ? 'gif' : 'png'}`)) {
       sharp(req.files.image.data)
-        .toFile(`${__dirname}/../uploads/${req.files.image.id}.${req.files.image.name.split('.').pop().toLowerCase() === 'gif' ? 'gif' : 'png'}`)
+        .toFile(`${settings.dir.uploads}/${req.files.image.id}.${req.files.image.name.split('.').pop().toLowerCase() === 'gif' ? 'gif' : 'png'}`)
         .then(() => {
-          jsonFile.writeFileSync(`${__dirname}/../uploads/meta/${req.files.image.id}.json`,
+          jsonFile.writeFileSync(`${settings.dir.uploads}/meta/${req.files.image.id}.json`,
           {
             uploadedAt: Math.floor(new Date() / 1000),
             filetype: req.files.image.name.split('.').pop().toLowerCase() === 'gif' ? 'gif' : 'png'
@@ -55,17 +57,17 @@ router.post('/upload', (req, res) => {
         });
       break;
     } else {
-      req.files.image.id = randomstring.generate(32);
+      req.files.image.id = random.generate(32);
       continue;
     }
   }
 });
 
 router.get('/uploads/:id', (req, res) => {
-  if (fs.existsSync(`${__dirname}/uploads/${req.params.id}.png`)) {
-    return res.status(200).sendFile(`${__dirname}/../uploads/${req.params.id}.png`);
-  } else if (fs.existsSync(`${__dirname}/../uploads/${req.params.id}.gif`)) {
-    return res.status(200).sendFile(`${__dirname}/../uploads/${req.params.id}.gif`);
+  if (fs.existsSync(`${settings.dir.uploads}/${req.params.id}.png`)) {
+    return res.status(200).sendFile(`${settings.dir.uploads}/${req.params.id}.png`);
+  } else if (fs.existsSync(`${settings.dir.uploads}/${req.params.id}.gif`)) {
+    return res.status(200).sendFile(`${settings.dir.uploads}/${req.params.id}.gif`);
   } else {
     res.status(404).render('info',
     {
@@ -78,8 +80,8 @@ router.get('/uploads/:id', (req, res) => {
 });
 
 router.get('/meta/:id', (req, res) => {
-  if (fs.existsSync(`${__dirname}/../uploads/meta/${req.params.id}.json`)) {
-    let meta = jsonFile.readFileSync(`${__dirname}/../uploads/meta/${req.params.id}.json`);
+  if (fs.existsSync(`${settings.dir.uploads}/meta/${req.params.id}.json`)) {
+    let meta = jsonFile.readFileSync(`${settings.dir.uploads}/meta/${req.params.id}.json`);
     res.status(200).render('meta',
     {
       meta: {

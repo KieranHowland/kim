@@ -3,16 +3,16 @@
   <head>
     <%- include('partials/metadata') %>
     <title>Kieran's Image Machine</title>
-    <link rel="stylesheet" href="/static/main.css">
+    <link rel="stylesheet" href="/static/index.css">
     <script src="/static/main.js"></script>
   </head>
   <body>
-    <div class="app">
+    <div id="app">
       <p id="title">Kieran's Image Machine</p>
       <form id="form" action="upload" method="post" enctype="multipart/form-data">
-        <label>
+        <label id="upload">
           <input id="image" type="file" name="image">
-          <span id="upload">Upload Image</span>
+          <span id="text">Upload Image</span><br>
           <span id="accepted">Supported File Types: <b>png, jpg, jpeg, gif</b></span>
         </label>
       </form>

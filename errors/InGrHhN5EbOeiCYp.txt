@@ -1,0 +1,16 @@
+Error ID: InGrHhN5EbOeiCYp
+Error Time: 2019-07-10 18:51:00
+
+---START OF ERROR---
+ForbiddenError: Forbidden
+    at SendStream.error (/home/kie/Development/KIM/node_modules/send/index.js:270:31)
+    at SendStream.pipe (/home/kie/Development/KIM/node_modules/send/index.js:553:12)
+    at sendfile (/home/kie/Development/KIM/node_modules/express/lib/response.js:1103:8)
+    at ServerResponse.sendFile (/home/kie/Development/KIM/node_modules/express/lib/response.js:433:3)
+    at router.get (/home/kie/Development/KIM/routes/index.js:68:28)
+    at Layer.handle [as handle_request] (/home/kie/Development/KIM/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/kie/Development/KIM/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/kie/Development/KIM/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/kie/Development/KIM/node_modules/express/lib/router/layer.js:95:5)
+    at /home/kie/Development/KIM/node_modules/express/lib/router/index.js:281:22
+----END OF ERROR----

@@ -1,9 +1,9 @@
 const express = require('express');
-const dataUri = require('datauri');
-const jsonfile = require('jsonfile');
+const random = require('randomstring');
 const sharp = require('sharp');
 const fs = require('fs');
-const randomstring = require('randomstring');
+const jsonfile = require('jsonfile');
+const dataUri = require('datauri');
 
 const router = express.Router();
 const settings = require('../settings');
@@ -23,7 +23,7 @@ router.post('/upload', async (req, res) => {
     status: 400,
     code: 'uploadLimitExceeded'
   });
-  if (settings.acceptedFiletypes.indexOf(req.files.image.name.split('.').pop().toLowerCase()) > -1) return res.status(400).json(
+  if (settings.acceptedFiletypes.indexOf(req.files.image.name.split('.').pop().toLowerCase()) < 0) return res.status(400).json(
   {
     status: 400,
     code: 'invalidType'
@@ -35,12 +35,12 @@ router.post('/upload', async (req, res) => {
   });
 
   while (true) {
-    req.files.image.id = randomstring.generate(32);
+    req.files.image.id = random.generate(32);
     if (!fs.existsSync(`${__dirname}/uploads/${req.files.image.id}.${req.files.image.name.split('.').pop().toLowerCase() === 'gif' ? 'gif' : 'png'}`)) {
       sharp(req.files.image.data)
         .toFile(`${__dirname}/uploads/${req.files.image.id}.${req.files.image.name.split('.').pop().toLowerCase() === 'gif' ? 'gif' : 'png'}`)
         .then(() => {
-          jsonfile.writeFileSync(`${__dirname}/../uploads/meta/${req.files.image.id}.json`, 
+          jsonfile.writeFileSync(`${settings.dir.uploads}/meta/${req.files.image.id}.json`, 
           { 
             uploadedAt: Math.floor(new Date() / 1000), 
             filetype: req.files.image.name.split('.').pop().toLowerCase() === 'gif' ? 'gif' : 'png' 
@@ -56,18 +56,18 @@ router.post('/upload', async (req, res) => {
         });
       break;
     } else {
-      req.files.image.id = randomstring.generate(32);
+      req.files.image.id = random.generate(32);
       continue;
     }
   }
 });
 
 router.get('/meta/:id', (req, res) => {
-  if (fs.existsSync(`${__dirname}/../uploads/meta/${req.params.id}.json`)) {
+  if (fs.existsSync(`${settings.dir.uploads}/meta/${req.params.id}.json`)) {
     res.status(200).json(
     {
       status: 200,
-      data: jsonfile.readFileSync(`${__dirname}/../uploads/meta/${req.params.id}.json`)
+      data: jsonfile.readFileSync(`${settings.dir.uploads}/meta/${req.params.id}.json`)
     });
   } else {
     res.status(404).json(
@@ -79,15 +79,15 @@ router.get('/meta/:id', (req, res) => {
 });
 
 router.get('/uri/:id', (req, res) => {
-  if (fs.existsSync(`${__dirname}/../uploads/${req.params.id}.png`)) {
+  if (fs.existsSync(`${settings.dir.uploads}/${req.params.id}.png`)) {
     return res.status(200).json(
     {
       status: 200,
       data:{
-        uri: new dataUri(`${__dirname}/../uploads/${req.params.id}.png`).content
+        uri: new dataUri(`${settings.dir.uploads}/${req.params.id}.png`).content
       }
     });
-  } else if (fs.existsSync(`${__dirname}/../uploads/${req.params.id}.gif`)) {
+  } else if (fs.existsSync(`${settings.dir.uploads}/${req.params.id}.gif`)) {
     return res.status(400).json(
     {
       status: 400,

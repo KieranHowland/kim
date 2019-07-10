@@ -1,0 +1,16 @@
+Error ID: rz1PzxCDb5YAqhkX
+Error Time: 2019-07-10 18:44:26
+
+---START OF ERROR---
+ReferenceError: settings is not defined
+    at router.post (/home/kie/Development/KIM/routes/index.js:28:3)
+    at Layer.handle [as handle_request] (/home/kie/Development/KIM/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/kie/Development/KIM/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/kie/Development/KIM/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/kie/Development/KIM/node_modules/express/lib/router/layer.js:95:5)
+    at /home/kie/Development/KIM/node_modules/express/lib/router/index.js:281:22
+    at Function.process_params (/home/kie/Development/KIM/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/kie/Development/KIM/node_modules/express/lib/router/index.js:275:10)
+    at Function.handle (/home/kie/Development/KIM/node_modules/express/lib/router/index.js:174:3)
+    at router (/home/kie/Development/KIM/node_modules/express/lib/router/index.js:47:12)
+----END OF ERROR----
