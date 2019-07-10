@@ -26,7 +26,6 @@ router.post('/upload', (req, res) => {
       description: 'You can only upload <b>1</b> image at a time, please try again.'
     }
   });
-  console.log(!settings.accepted.indexOf(req.files.image.name.split('.').pop().toLowerCase()) > -1);
   if (settings.accepted.indexOf(req.files.image.name.split('.').pop().toLowerCase()) < 0) return res.status(400).render('info',
   {
     info: {
