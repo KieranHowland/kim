@@ -5,6 +5,7 @@ window.onload = () => {
   let input = button.querySelector('input#image');
   let buttonText = button.querySelector('span#text');
   let buttonAccepted = button.querySelector('span#accepted');
+  let dragging = 0;
 
   input.value = '';
 
@@ -15,25 +16,37 @@ window.onload = () => {
     form.submit();
   });
 
-  document.addEventListener('dragover', (event) => {
+  window.addEventListener('dragover', (event) => {
+    drag.classList.add('active');
+    event.dataTransfer.dropEffect = 'copy';
+    event.preventDefault();
+    event.stopPropagation();
+    return false;
+  });
+
+  window.addEventListener('dragenter', (event) => {
+    dragging++;
     event.preventDefault();
     event.stopPropagation();
     drag.classList.add('active');
     event.dataTransfer.dropEffect = 'copy';
+    return false;
   });
 
-  document.addEventListener('dragexit', () => {
-    console.log('Fired');
-    drag.classList.remove('active');
+  window.addEventListener('dragleave', (event) => {
+    dragging--;
+    if (dragging === 0) drag.classList.remove('active');
+    event.stopPropagation();
+    event.preventDefault();
+    return false;
   });
 
-  document.addEventListener('drop', (event) => {
+  window.addEventListener('drop', (event) => {
     event.preventDefault();
     drag.classList.remove('active');
     if (!event.dataTransfer.files[0]) return;
-    if (!event.dataTransfer.files[0].size <= 0) return;
-    if (!event.dataTransfer.files[0].type !== 'file') return;
-    input.files = event.dataTransfer.files[0];
+    if (event.dataTransfer.files[0].size <= 0) return;
+    input.files = event.dataTransfer.files;
     buttonText.innerHTML = 'Uploading...';
     button.classList.add('uploading');
     form.submit();

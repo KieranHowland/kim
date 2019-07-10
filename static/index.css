@@ -93,7 +93,7 @@ div#drag {
 
 div#drag.active {
   display: block;
-  background: rgb(0, 0, 3, 0.5);
+  background: rgb(0, 0, 3, 0.8);
 }
 
 div#drag.active p#text {
