@@ -1,6 +1,5 @@
 const fs = require('fs');
 const minify = require('html-minifier').minify;
-const chalk = require('chalk');
 
 if (fs.existsSync(`${__dirname}/backup`)) {
   fs.readdir(`${__dirname}`, function (err, files) {
@@ -14,7 +13,6 @@ if (fs.existsSync(`${__dirname}/backup`)) {
       };
       fs.copyFile(`${__dirname}/${file}`, `${__dirname}/backup/${file}`, function (err) {
         if (err) return;
-        console.log(chalk.green(`Backed up ${chalk.yellow(file)}`));
         fs.writeFileSync(`${__dirname}/${file}`, minify(fs.readFileSync(`${__dirname}/${file}`, encoding='utf8'),
           {
             collapseWhitespace: false,
