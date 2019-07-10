@@ -10,8 +10,7 @@ services:
       - "8001"
     volumes:
       - ./uploads:/app/uploads
-      - ./views:/app/views
-      - ./public:/app/public
+      - ./static:/app/static
     labels:
       - "traefik.docker.network=proxy"
       - "traefik.enable=true"
