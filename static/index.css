@@ -1,8 +1,8 @@
 div#app {
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  transform: translate(0, -50%);
   box-sizing: border-box;
 }
 
@@ -12,11 +12,11 @@ p#title {
 }
 
 label#upload {
-  display: block;
+  display: inline-block;
   background: rgb(26, 26, 29);
   color: rgb(255, 255, 255);
   border-radius: 8px;
-  padding: 8px;
+  padding: 8px 16px;
   margin: 0 0 16px 0;
   cursor: pointer;
   transition: .2s ease-in-out;

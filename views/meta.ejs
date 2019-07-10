@@ -1,20 +1,17 @@
 <%- '<!DOCTYPE html>' %>
-<html lang="en" dir="ltr">
-
-<head>
-  <%- include('partials/metadata') %>
-  <title>Meta data: <%= meta.id %></title>
-  <link rel="stylesheet" href="/static/meta.css">
-  <link rel="stylesheet" href="/static/default.css">
-</head>
-
-<body>
-  <div class="app">
-    <p id="title">Meta data: <%- meta.id %></p>
-    <p id="info"><b>Upload Time:</b> <code class="inline-code"><%- meta.uploadedAt %></code></p>
-    <p id="info"><b>Filetype:</b> <code class="inline-code"><%- meta.fileType %></code></p>
-  </div>
-</body>
-
+<html lang="en">
+  <head>
+    <%- include('partials/metadata') %>
+    <title>Meta data: <%= meta.id %></title>
+    <link rel="stylesheet" href="/static/info.css">
+    <link rel="stylesheet" href="/static/default.css">
+  </head>
+  <body>
+    <div id="app">
+      <p id="title">Meta data: <%- meta.id %></p>
+      <p id="info"><b>Upload Time:</b> <code class="inline-code"><%- meta.uploadedAt %></code></p>
+      <p id="info"><b>Filetype:</b> <code class="inline-code"><%- meta.fileType %></code></p>
+    </div>
+  </body>
 </html>
 <%- include('partials/generated') %>

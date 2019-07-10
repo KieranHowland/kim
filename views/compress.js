@@ -4,7 +4,7 @@ const chalk = require('chalk');
 
 if (fs.existsSync(`${__dirname}/backup`)) {
   fs.readdir(`${__dirname}`, function (err, files) {
-    if (err) console.error(err.stack);
+    if (err) return;
     files.forEach(function (file) {
       if (file.split('.').pop() !== 'ejs') return;
       if (fs.existsSync(`${__dirname}/backup/${file}`) && fs.readFileSync(`${__dirname}/${file}`) === fs.readFileSync(`${__dirname}/backup/${file}`)) {
@@ -13,7 +13,7 @@ if (fs.existsSync(`${__dirname}/backup`)) {
         fs.unlinkSync(`${__dirname}/backup/${file}`);
       };
       fs.copyFile(`${__dirname}/${file}`, `${__dirname}/backup/${file}`, function (err) {
-        if (err) console.error(err.stack);
+        if (err) return;
         console.log(chalk.green(`Backed up ${chalk.yellow(file)}`));
         fs.writeFileSync(`${__dirname}/${file}`, minify(fs.readFileSync(`${__dirname}/${file}`, encoding='utf8'),
           {
@@ -26,11 +26,7 @@ if (fs.existsSync(`${__dirname}/backup`)) {
             removeComments: true
           }
         ));
-        console.log(chalk.green(`Compressed ${chalk.yellow(file)}`));
       });
     });
   });
-} else {
-  fs.mkdirSync(`${__dirname}/backup`);
-  console.log(chalk.green('Backup directory created.'));
 }

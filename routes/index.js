@@ -93,8 +93,8 @@ router.get('/meta/:id', (req, res) => {
     res.status(404).render('info',
     {
       info: {
-        title: 'Upload Not Found',
-        description: 'The requested image does not exist.'
+        title: 'Meta Data Not Found',
+        description: 'The requested image does not have any meta data stored.'
       }
     });
   }

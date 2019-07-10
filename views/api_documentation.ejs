@@ -1,79 +1,76 @@
 <%- '<!DOCTYPE html>' %>
 <html lang="en">
-
-<head>
-  <%- include('partials/metadata') %>
-  <title>API Documentation</title>
-  <link rel="stylesheet" href="/static/api.css">
-  <link rel="stylesheet" href="/static/default.css">
-</head>
-
-<body>
-  <div id="app">
-    <p id="title">API Documentation</p>
-    <a draggable="false" href="/" rel="noreferrer">Home</a><br><br><br>
-    <p id="info">Base URL: <code id="inline">https://kim.kieranhowland.co.uk/api/(path)</code></p>
-    <p id="info">Uploads Base URL: <code id="inline">https://kim.kieranhowland.co.uk/uploads/(id)</code></p><br>
-    <table style="width:100%">
-      <tr>
-        <th>Method</th>
-        <th>Path</th>
-        <th>Example Response</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td>POST</td>
-        <td>/upload/</td>
-        <td>
-          <p>Request:</p>
-          <code>curl -X POST -F "image=@cat.png" https://kim.kieranhowland.co.uk/api/upload</code><br>
-          <p>Response:</p>
-          <code>{
+  <head>
+    <%- include('partials/metadata') %>
+    <title>API Documentation</title>
+    <link rel="stylesheet" href="/static/default.css">
+    <link rel="stylesheet" href="/static/api.css">
+  </head>
+  <body>
+    <div id="app">
+      <p id="title">API Documentation</p>
+      <a draggable="false" href="/" rel="noreferrer">Home</a><br><br><br>
+      <p id="info">Base URL: <code id="inline">https://kim.kieranhowland.co.uk/api/(path)</code></p>
+      <p id="info">Uploads Base URL: <code id="inline">https://kim.kieranhowland.co.uk/uploads/(id)</code></p><br>
+      <table style="width:100%">
+        <tr>
+          <th>Method</th>
+          <th>Path</th>
+          <th>Example Response</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>POST</td>
+          <td>/upload/</td>
+          <td>
+            <p>Request:</p>
+            <code>curl -X POST -F "image=@cat.png" https://kim.kieranhowland.co.uk/api/upload</code><br>
+            <p>Response:</p>
+            <code>{
   "status":200,
   "data":{
     "image_id":"DQNMMxSm8SbYSJVt15cecbke8LqsidfE",
     "filetype":"png"
   }
 }</code>
-        </td>
-        <td>Uploads an image and returns the ID and filetype</td>
-      </tr>
-      <tr>
-        <td>GET</td>
-        <td>/uri/(ID)</td>
-        <td>
-          <p>Request:</p>
-          <code>curl https://kim.kieranhowland.co.uk/api/datauri/BMebfPsEIFOOGN7QVN4znEesd92jxxqS</code><br>
-          <p>Response:</p>
-          <code>{
+          </td>
+          <td>Uploads an image and returns the ID and filetype</td>
+        </tr>
+        <tr>
+          <td>GET</td>
+          <td>/uri/(ID)</td>
+          <td>
+            <p>Request:</p>
+            <code>curl https://kim.kieranhowland.co.uk/api/datauri/BMebfPsEIFOOGN7QVN4znEesd92jxxqS</code><br>
+            <p>Response:</p>
+            <code>{
   "status":200,
   "data":{
     "uri":"data:image/png;base64..."
   }
 }</code>
-        </td>
-        <td>Returns data URI for the specified image</td>
-      </tr>
-      <tr>
-        <td>GET</td>
-        <td>/meta/(ID)</td>
-        <td>
-          <p>Request:</p>
-          <code>curl https://kim.kieranhowland.co.uk/api/meta/CZD16C3kHvAhiC2PD6r8FQWmiqse82RS</code><br>
-          <p>Response:</p>
-          <code>{
+          </td>
+          <td>Returns data URI for the specified image</td>
+        </tr>
+        <tr>
+          <td>GET</td>
+          <td>/meta/(ID)</td>
+          <td>
+            <p>Request:</p>
+            <code>curl https://kim.kieranhowland.co.uk/api/meta/CZD16C3kHvAhiC2PD6r8FQWmiqse82RS</code><br>
+            <p>Response:</p>
+            <code>{
   "status":200,
   "data":{
     "uploadedAt":1551415661,
     "filetype":"png"
   }
 }</code>
-        </td>
-        <td>Gets meta data on the specified image (Some images don't have meta data stored)</td>
-      </tr>
-    </table>
-  </div>
-</body>
-
+          </td>
+          <td>Gets meta data on the specified image (Some images don't have meta data stored)</td>
+        </tr>
+      </table>
+    </div>
+  </body>
 </html>
 <%- include('partials/generated') %>
