@@ -1,18 +1,17 @@
 <%- '<!DOCTYPE html>' %>
 <html lang="en">
   <head>
-    <%- include('partials/metadata') %>
     <title>API Documentation</title>
-    <link rel="stylesheet" href="/static/default.css">
     <link rel="stylesheet" href="/static/api.css">
+    <%- include('partials/metadata') %>
   </head>
   <body>
     <div id="app">
       <p id="title">API Documentation</p>
       <a draggable="false" href="/" rel="noreferrer">Home</a><br><br><br>
-      <p id="info">Base URL: <code id="inline">https://kim.kieranhowland.co.uk/api/(path)</code></p>
-      <p id="info">Uploads Base URL: <code id="inline">https://kim.kieranhowland.co.uk/uploads/(id)</code></p><br>
-      <table style="width:100%">
+      <p id="info">Base URL: <code class="inline">https://kim.kieranhowland.cc/api/(path)</code></p>
+      <p id="info">Uploads Base URL: <code class="inline">https://kim.kieranhowland.cc/uploads/(id)</code></p><br>
+      <table>
         <tr>
           <th>Method</th>
           <th>Path</th>
@@ -24,7 +23,7 @@
           <td>/upload/</td>
           <td>
             <p>Request:</p>
-            <code>curl -X POST -F "image=@cat.png" https://kim.kieranhowland.co.uk/api/upload</code><br>
+            <code>curl -X POST -F "image=@cat.png" https://kim.kieranhowland.cc/api/upload</code><br>
             <p>Response:</p>
             <code>{
   "status":200,
@@ -41,7 +40,7 @@
           <td>/uri/(ID)</td>
           <td>
             <p>Request:</p>
-            <code>curl https://kim.kieranhowland.co.uk/api/datauri/BMebfPsEIFOOGN7QVN4znEesd92jxxqS</code><br>
+            <code>curl https://kim.kieranhowland.cc/api/uri/BMebfPsEIFOOGN7QVN4znEesd92jxxqS</code><br>
             <p>Response:</p>
             <code>{
   "status":200,
@@ -57,7 +56,7 @@
           <td>/meta/(ID)</td>
           <td>
             <p>Request:</p>
-            <code>curl https://kim.kieranhowland.co.uk/api/meta/CZD16C3kHvAhiC2PD6r8FQWmiqse82RS</code><br>
+            <code>curl https://kim.kieranhowland.cc/api/meta/CZD16C3kHvAhiC2PD6r8FQWmiqse82RS</code><br>
             <p>Response:</p>
             <code>{
   "status":200,
