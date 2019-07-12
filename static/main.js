@@ -4,7 +4,6 @@ window.onload = () => {
   let button = document.querySelector('label#upload');
   let input = button.querySelector('input#image');
   let buttonText = button.querySelector('span#text');
-  let buttonAccepted = button.querySelector('span#accepted');
   let dragging = 0;
 
   input.value = '';
