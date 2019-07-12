@@ -105,6 +105,11 @@ label#upload span#text {
   font-size: 1.1em;
 }
 
+label#upload.uploading {
+  background: transparent;
+  pointer-events: none;
+}
+
 label#upload.uploading span#text {
   margin: 0 0 0 8px;
 }
