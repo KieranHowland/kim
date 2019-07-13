@@ -17,8 +17,9 @@ app.use(require('helmet')());
 app.use(require('compression')());
 app.use('/static', express.static('./static'));
 
-app.use('/api', require('./routes/api'));
 app.use('/', require('./routes/index'));
+app.use('/api', require('./routes/api'));
+app.use('/admin', require('./routes/admin'));
 
 app.use((err, req, res, next) => {
   err.id = random.generate(16);
