@@ -83,7 +83,7 @@ router.get('/uri/:id', (req, res) => {
     return res.status(200).json(
     {
       status: 200,
-      data:{
+      data: {
         uri: new dataUri(`${settings.dir.uploads}/${req.params.id}.png`).content
       }
     });
@@ -100,6 +100,16 @@ router.get('/uri/:id', (req, res) => {
       code: 'notFound'
     });
   }
+});
+
+router.get('/version', (req, res) => {
+  return res.status(200).json(
+  {
+    status: 200,
+    data: {
+      version: process.env.VERSION
+    }
+  });
 });
 
 router.use((req, res, next) => {

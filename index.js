@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const fs = require('fs');
 const random = require('randomstring');
@@ -15,11 +17,23 @@ app.use(require('express-fileupload')(
 }));
 app.use(require('helmet')());
 app.use(require('compression')());
+
 app.use('/static', express.static('./static'));
+app.use('/', express.static('./static/root'));
 
 app.use('/', require('./routes/index'));
 app.use('/api', require('./routes/api'));
 app.use('/admin', require('./routes/admin'));
+
+app.use((req, res, next) => {
+  res.status(404).render('info',
+  {
+    info: {
+      title: 'Page Not Found',
+      description: `The server couldn't find anything at <b>${req.path}</b>`
+    }
+  });
+});
 
 app.use((err, req, res, next) => {
   err.id = random.generate(16);

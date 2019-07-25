@@ -15,11 +15,8 @@ if (fs.existsSync(`${__dirname}/backup`)) {
         if (err) return;
         fs.writeFileSync(`${__dirname}/${file}`, minify(fs.readFileSync(`${__dirname}/${file}`, encoding='utf8'),
           {
-            collapseWhitespace: false,
-            collapseBooleanAttributes: true,
             html5: true,
             minifyCSS: true,
-            minifyJS: true,
             minifyURLs: true,
             removeComments: true
           }

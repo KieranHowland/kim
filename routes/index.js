@@ -100,14 +100,4 @@ router.get('/meta/:id', (req, res) => {
   }
 });
 
-router.use((req, res, next) => {
-  res.status(404).render('info',
-  {
-    info: {
-      title: 'Page Not Found',
-      description: `The server couldn't find anything at <b>${req.path}</b>`
-    }
-  });
-});
-
 module.exports = router;

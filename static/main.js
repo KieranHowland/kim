@@ -1,9 +1,15 @@
 window.onload = () => {
+  /**
+   * TODO: Improve drag and drop to work lagless and as easily as possible
+   * TODO: Add more client side sanitization, validation
+   */
+  
   let drag = document.querySelector('div#drag');
   let form = document.querySelector('form#form');
   let button = document.querySelector('label#upload');
   let input = button.querySelector('input#image');
   let buttonText = button.querySelector('span#text');
+
   let dragging = 0;
 
   input.value = '';

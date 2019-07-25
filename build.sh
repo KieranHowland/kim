@@ -14,7 +14,7 @@ if [ ! -d "./build" ]
 then
   mkdir ./build
 else
-  rm ./build
+  rm -r ./build
   mkdir ./build
 fi
 

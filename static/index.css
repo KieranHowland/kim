@@ -162,3 +162,22 @@ div#drag.active p#text {
   transform: translate(-50%, -50%);
   font-size: 1.2em;
 }
+
+div#build {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  text-align: right;
+  font-size: 0.8em;
+  border-radius: 8px;
+  color: rgb(255, 255, 255, 0.1);
+  margin: 0 8px 4px 0;
+  transition: .2s;
+}
+
+div#build:hover {
+  font-size: 1em;
+  padding: 8px 12px;
+  margin: 0 16px 8px 0;
+  color: rgb(255, 255, 255);
+}
