@@ -67,24 +67,4 @@ router.get('/uploads/:id', (req, res) => {
   }
 });
 
-router.get('/meta/:id', (req, res) => {
-  if (fs.existsSync(`${settings.dir.uploads}/meta/${req.params.id}.json`)) {
-    let meta = jsonFile.readFileSync(`${settings.dir.uploads}/meta/${req.params.id}.json`);
-    res.status(200).render('meta', {
-      meta: {
-        id: req.params.id,
-        uploadedAt: meta.uploadedAt,
-        fileType: meta.fileType
-      }
-    });
-  } else {
-    res.status(404).render('info', {
-      info: {
-        title: 'Meta Data Not Found',
-        description: 'The requested image does not have any meta data stored.'
-      }
-    });
-  }
-});
-
 module.exports = router;

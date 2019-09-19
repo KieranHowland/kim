@@ -43,7 +43,6 @@ div#app {
 
 a {
   color: rgb(52, 152, 219);
-  border: 1px solid rgb(52, 152, 219, 0.4);
   font-size: 0.9em;
   margin: 0 4px 0 4px;
   padding: 2px 6px;
