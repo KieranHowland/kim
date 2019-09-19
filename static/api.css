@@ -10,6 +10,7 @@
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -79,7 +80,8 @@ table {
   width: 100%;
 }
 
-td, th {
+td,
+th {
   font-size: 0.9em;
   padding: 16px;
   text-align: left;

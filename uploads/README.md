@@ -1,1 +1,0 @@
-Uploads will be stored in this directory alongside their meta data which is stored in the "meta" child directory.

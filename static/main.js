@@ -1,9 +1,9 @@
-window.onload = () => {
+window.onload = async () => {
   /**
    * TODO: Improve drag and drop to work lagless and as easily as possible
-   * TODO: Add more client side sanitization, validation
+   * TODO: Add more client side sanitization/validation
    */
-  
+
   let drag = document.querySelector('div#drag');
   let form = document.querySelector('form#form');
   let button = document.querySelector('label#upload');
@@ -56,4 +56,7 @@ window.onload = () => {
     button.classList.add('uploading');
     form.submit();
   });
-}
+
+  buttonText.innerHTML = 'Upload Image';
+  button.classList.remove('uploading');
+};

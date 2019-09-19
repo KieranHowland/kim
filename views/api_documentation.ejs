@@ -9,13 +9,13 @@
     <div id="app">
       <p id="title">API Documentation</p>
       <a draggable="false" href="/" rel="noreferrer">Home</a><br><br><br>
-      <p id="info">Base URL: <code class="inline">https://kim.kieranhowland.cc/api/(path)</code></p>
+      <p id="info">Base URL: <code class="inline">https://kim.kieranhowland.cc/api/(endpoint)</code></p>
       <p id="info">Uploads Base URL: <code class="inline">https://kim.kieranhowland.cc/uploads/(id)</code></p><br>
       <table>
         <tr>
           <th>Method</th>
-          <th>Path</th>
-          <th>Example Response</th>
+          <th>Endpoint</th>
+          <th>Response</th>
           <th>Description</th>
         </tr>
         <tr>
@@ -33,23 +33,7 @@
   }
 }</code>
           </td>
-          <td>Uploads an image and returns the ID and filetype</td>
-        </tr>
-        <tr>
-          <td>GET</td>
-          <td>/uri/(ID)</td>
-          <td>
-            <p>Request:</p>
-            <code>curl https://kim.kieranhowland.cc/api/uri/BMebfPsEIFOOGN7QVN4znEesd92jxxqS</code><br>
-            <p>Response:</p>
-            <code>{
-  "status":200,
-  "data":{
-    "uri":"data:image/png;base64..."
-  }
-}</code>
-          </td>
-          <td>Returns data URI for the specified image</td>
+          <td>Uploads an image and returns the ID and type</td>
         </tr>
         <tr>
           <td>GET</td>

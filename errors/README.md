@@ -1,1 +1,0 @@
-If an unhandled error occurs it will be put in a text file in this directory, the user will also be given a unique "error ID" making it easy to find and fix an error when needed,

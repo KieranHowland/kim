@@ -1,27 +1,21 @@
 const fs = require('fs');
+const path = require('path');
 const minify = require('html-minifier').minify;
 
-if (fs.existsSync(`${__dirname}/backup`)) {
-  fs.readdir(`${__dirname}`, function (err, files) {
-    if (err) return;
-    files.forEach(function (file) {
-      if (file.split('.').pop() !== 'ejs') return;
-      if (fs.existsSync(`${__dirname}/backup/${file}`) && fs.readFileSync(`${__dirname}/${file}`) === fs.readFileSync(`${__dirname}/backup/${file}`)) {
-        return;
-      } else if (fs.existsSync(`${__dirname}/backup/${file}`)) {
-        fs.unlinkSync(`${__dirname}/backup/${file}`);
-      };
-      fs.copyFile(`${__dirname}/${file}`, `${__dirname}/backup/${file}`, function (err) {
-        if (err) return;
-        fs.writeFileSync(`${__dirname}/${file}`, minify(fs.readFileSync(`${__dirname}/${file}`, encoding='utf8'),
-          {
-            html5: true,
-            minifyCSS: true,
-            minifyURLs: true,
-            removeComments: true
-          }
-        ));
-      });
-    });
-  });
-}
+if (!fs.existsSync(__dirname + '/backup')) fs.mkdirSync(__dirname + '/backup');
+
+for (let file of fs.readdirSync(__dirname)) {
+  if (fs.statSync(path.resolve(__dirname, file)).isDirectory()) continue;
+  if (file.split('.').pop() !== 'ejs') continue;
+
+  if (fs.existsSync(path.resolve(__dirname, 'backup', file))) fs.unlinkSync(path.resolve(__dirname, 'backup', file));
+
+  fs.copyFileSync(path.resolve(__dirname, file), path.resolve(__dirname, 'backup', file));
+  
+  fs.writeFileSync(path.resolve(__dirname, file), minify(fs.readFileSync(path.resolve(__dirname, file)), {
+    html5: true,
+    minifyCSS: true,
+    minifyURLs: true,
+    removeComments: true
+  }));
+};

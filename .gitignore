@@ -24,4 +24,7 @@ typings/
 .yarn-integrity
 .env
 .next
-build
+
+uploads/
+errors/
+build/

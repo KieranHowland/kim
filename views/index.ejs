@@ -1,35 +1,40 @@
 <%- '<!DOCTYPE html>' %>
 <html lang="en">
-  <head>
-    <title>Kieran's Image Machine</title>
-    <link rel="stylesheet" href="/static/index.css">
-    <script src="/static/main.js"></script>
-    <%- include('partials/metadata') %>
-  </head>
-  <body>
-    <div id="app">
-      <p id="title">Kieran's Image Machine</p>
-      <form id="form" action="upload" method="post" enctype="multipart/form-data">
-        <label id="upload">
-          <input id="image" type="file" name="image">
-          <div id="loading"></div>
-          <span id="text">Upload Image</span><br>
-          <span id="accepted">Supported File Types: <b>png, jpg, jpeg, gif</b></span>
-        </label>
-      </form>
-      <div id="links">
-        <a draggable="false" href="/api" rel="noreferrer">API</a>
-        <a draggable="false" href="https://twitter.com/KieranHowland" target="_blank" rel="noreferrer">Twitter</a>
-        <a draggable="false" href="https://github.com/KieranHowland/kim" target="_blank" rel="noreferrer">GitHub</a>
-      </div>
+
+<head>
+  <title>Kieran's Image Machine</title>
+  <link rel="stylesheet" href="/static/index.css">
+  <script src="/static/main.js"></script>
+  <%- include('partials/metadata') %>
+</head>
+
+<body>
+  <div id="app">
+    <p id="title">Kieran's Image Machine</p>
+    <form id="form" action="upload" method="post" enctype="multipart/form-data">
+      <label id="upload" class="uploading">
+        <input id="image" type="file" name="image">
+        <div id="loading"></div>
+        <span id="text">Loading...</span><br>
+        <span id="accepted">Supported File Types: <b>png, jpg, jpeg, gif</b></span>
+      </label>
+    </form>
+    <div id="links">
+      <a draggable="false" href="/api" rel="noreferrer">API</a>
+      <a draggable="false" href="https://twitter.com/KieranHowland" target="_blank" rel="noreferrer">Twitter</a>
+      <a draggable="false" href="https://github.com/KieranHowland/kim" target="_blank" rel="noreferrer">GitHub</a>
     </div>
-    <div id="drag">
-      <p id="text">Drop Image To Upload</p>
-    </div>
-    <div id="build">
-      <span id="version">Version <%- process.env.VERSION %></span>
-    </div>
-  </body>
+  </div>
+  <div id="drag">
+    <p id="text">Drop Image To Upload</p>
+  </div>
+  <div id="build">
+    <span id="version">Version <%- process.env.VERSION %></span>
+  </div>
+</body>
+
 </html>
-<script>/**/</script>
+<script>
+  /**/
+</script>
 <%- include('partials/generated') %>

@@ -8,10 +8,10 @@ module.exports = {
     errors: path.resolve('./errors')
   },
   accepted: [
-    'jpg',
-    'jpeg',
-    'png',
-    'gif'
+    'image/jpg',
+    'image/jpeg',
+    'image/png',
+    'image/gif',
+    'image/bmp'
   ]
 }
-

@@ -1,17 +1,22 @@
 <%- '<!DOCTYPE html>' %>
 <html lang="en">
-  <head>
-    <title><%= info.title %></title>
-    <link rel="stylesheet" href="/static/info.css">
-    <%- include('partials/metadata') %>
-  </head>
-  <body>
-    <div id="app">
-      <p id="title"><%- info.title %></p>
-      <p id="info"><%- info.description %></p><br>
-      <a draggable="false" href="/" rel="noreferrer">Home</a>
-    </div>
-  </body>
+
+<head>
+  <title><%= info.title %></title>
+  <link rel="stylesheet" href="/static/info.css">
+  <%- include('partials/metadata') %>
+</head>
+
+<body>
+  <div id="app">
+    <p id="title"><%- info.title %></p>
+    <p id="info"><%- info.description %></p><br>
+    <a draggable="false" href="/" rel="noreferrer">Home</a>
+  </div>
+</body>
+
 </html>
-<script>/**/</script>
+<script>
+  /**/
+</script>
 <%- include('partials/generated') %>
