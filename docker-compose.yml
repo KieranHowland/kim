@@ -3,14 +3,11 @@ version: '3'
 services:
   server:
     restart: unless-stopped
-    build: "."
+    build: .
     networks:
       - web
     expose:
-      - "8001"
-    volumes:
-      - ./uploads:/app/uploads
-      - ./static:/app/static
+      - 8001
     labels:
       - "traefik.docker.network=proxy"
       - "traefik.enable=true"

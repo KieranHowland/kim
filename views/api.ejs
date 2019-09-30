@@ -1,7 +1,7 @@
 <%- '<!DOCTYPE html>' %>
 <html lang="en">
   <head>
-    <title>API Documentation</title>
+    <title>API</title>
     <link rel="stylesheet" href="/static/api.css">
     <%- include('partials/metadata') %>
   </head>
@@ -23,34 +23,54 @@
           <td>/upload/</td>
           <td>
             <p>Request:</p>
-            <code>curl -X POST -F "image=@cat.png" https://kim.kieranhowland.cc/api/upload</code><br>
+            <code>curl -X POST -F 'image=@image.jpg' https://kim.kieranhowland.cc/api/upload/</code><br>
             <p>Response:</p>
             <code>{
-  "status":200,
-  "data":{
-    "image_id":"DQNMMxSm8SbYSJVt15cecbke8LqsidfE",
-    "filetype":"png"
+  "status": 200,
+  "data": {
+    "id": "bqzy5hrk0yfmmqt",
+    "type": {
+      "ext": "jpg",
+      "mime": "image/jpeg"
+    }
   }
 }</code>
           </td>
-          <td>Uploads an image and returns the ID and type</td>
+          <td>Uploads image and returns the ID of the uploaded image along with the file type.</td>
         </tr>
         <tr>
           <td>GET</td>
-          <td>/meta/(ID)</td>
+          <td>/meta/(ID)/</td>
           <td>
             <p>Request:</p>
-            <code>curl https://kim.kieranhowland.cc/api/meta/CZD16C3kHvAhiC2PD6r8FQWmiqse82RS</code><br>
+            <code>curl https://kim.kieranhowland.cc/api/meta/bqzy5hrk0yfmmqt/</code><br>
             <p>Response:</p>
             <code>{
-  "status":200,
-  "data":{
-    "uploadedAt":1551415661,
-    "filetype":"png"
+  "status": 200,
+  "data": {
+    "uploaded": 1569365756657,
+    "type": {
+      "ext": "jpg",
+      "mime": "image/jpeg"
+    }
   }
 }</code>
           </td>
-          <td>Gets meta data on the specified image (Some images don't have meta data stored)</td>
+          <td>Returns the meta data associated with the request image.</td>
+        </tr>
+        <tr>
+          <td>GET</td>
+          <td>/delete/(ID)/</td>
+          <td>
+            <p>Request:</p>
+            <code>curl https://kim.kieranhowland.cc/api/delete/bqzy5hrk0yfmmqt/</code><br>
+            <p>Response:</p>
+            <code>{
+  "status": 200,
+  "data": "success"
+}</code>
+          </td>
+          <td>Deletes the specified image if the senders IP address matches the one stored.</td>
         </tr>
       </table>
     </div>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/static/dashboard.css">
+  <script>
+    window.onload = () => {
+      let input = document.querySelector('input#id');
+      let image = document.querySelector('img#image');
+      let options = document.querySelector('div#options');
+      let del = options.querySelector('a#delete');
+
+      let id;
+
+      input.addEventListener('change', () => {
+        id = input.value;
+
+        image.src = 'https://kim.kieranhowland.cc/uploads/' + id;
+        del.href = 'https://kim.kieranhowland.cc/dashboard/delete/' + id;
+
+        options.style.display = 'block';
+
+        input.style.display = 'none';
+        options.style.display = 'inline-block';
+        image.style.display = 'inline-block';
+      });
+    }
+  </script>
+  <title>Admin Dashboard</title>
+</head>
+<body>
+  <div id="app">
+    <p id="title">Admin Dashboard</p>
+    <img id="image" src="" alt="Image" style="display: none;"><br>
+    <div id="options" style="display: none;">
+      <a href="" id="delete">Delete</a>
+    </div>
+    <input id="id" type="text" placeholder="Image ID">
+  </div>
+</body>
+</html>

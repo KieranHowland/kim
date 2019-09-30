@@ -1,73 +1,112 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 const uniq = require('uniqid');
-const sharp = require('sharp');
-const fs = require('fs');
-const jsonfile = require('jsonfile');
-const dataUri = require('datauri');
 
 const router = express.Router();
 const settings = require('../settings');
+const schemas = require('../schemas');
+
+const Image = mongoose.model('image', schemas.Image);
 
 router.get('/', (req, res) => {
-  return res.status(200).render('api_documentation');
+  return res.status(200).render('api');
 });
 
 router.post('/upload', async (req, res) => {
   req.files.image.id = uniq();
   req.files.image.type = fileType(req.files.image.data);
 
-  if (!req.files) return res.status(400).json({
+  if (!req.files || req.files === null) return res.status(400).json({
     status: 400,
-    code: 'invalidUpload'
+    code: 'invalid_body'
   });
   if (typeof req.files.image === 'array') return res.status(400).json({
     status: 400,
-    code: 'uploadLimitExceeded'
+    code: 'quantity_limit_exceeded'
   });
   if (!req.files.image.type || !settings.accepted.includes(req.files.image.type.mime)) return res.status(400).json({
     status: 400,
-    code: 'invalidType'
+    code: 'invalid_type'
   });
   if (req.files.image.truncated) return res.status(400).json({
     status: 400,
-    code: 'sizeLimitExceeded'
+    code: 'size_limit_exceeded'
   });
 
-  sharp(req.files.image.data)
-    .toFile(`${settings.dir.uploads}/${req.files.image.id}.${req.files.image.type.ext}`)
-    .then(() => {
-      jsonFile.writeFileSync(`${settings.dir.uploads}/meta/${req.files.image.id}.json`, {
-        uploadedAt: Math.floor(new Date() / 1000),
-        filetype: req.files.image.name.split('.').pop().toLowerCase() === 'gif' ? 'gif' : 'png'
-      });
-      return res.status(200).json({
-        status: 200,
-        data: {
-          id: req.files.image.id,
-          type: req.files.image.type
-        }
-      });
+  Image.create({
+    _id: req.files.image.id,
+    data: req.files.image.data,
+    meta: {
+      uploaded: Date.now(),
+      type: req.files.image.type
+    },
+    uploader: bcrypt.hashSync(req.ip, 10)
+  }, (err) => {
+    if (err) return res.status(500).json({
+      status: 500,
+      code: 'internal_server_error'
     });
+
+    return res.status(200).json({
+      status: 200,
+      data: {
+        id: req.files.image.id,
+        type: req.files.image.type
+      }
+    });
+  });
 });
 
 router.get('/meta/:id', (req, res) => {
-  if (fs.existsSync(`${settings.dir.uploads}/meta/${req.params.id}.json`)) {
-    res.status(200).json({
-      status: 200,
-      data: jsonfile.readFileSync(`${settings.dir.uploads}/meta/${req.params.id}.json`)
+  Image.findById(req.params.id, (err, image) => {
+    if (err) return res.status(500).json({
+      status: 500,
+      code: 'internal_server_error'
     });
-  } else {
-    res.status(404).json({
+
+    if (!image) return res.status(404).json({
       status: 404,
-      code: 'notFound'
+      code: 'not_found'
     });
-  }
+
+    return res.status(200).json({
+      status: 200,
+      data: image.meta
+    });
+  });
+});
+
+router.get('/delete/:id', (req, res) => {
+  Image.findById(req.params.id, (err, image) => {
+    if (err) return res.status(500).json({
+      status: 500,
+      code: 'internal_server_error'
+    });
+
+    if (!image) return res.status(404).json({
+      status: 404,
+      code: 'not_found'
+    });
+
+    if (!bcrypt.compareSync(req.ip, image.uploader)) return res.status(400).json({
+      status: 400,
+      code: 'invalid_uploader'
+    });
+
+    image.delete();
+
+    return res.status(200).json({
+      status: 200,
+      data: 'success'
+    });
+  });
 });
 
 router.use((req, res, next) => {
   return res.status(404).json({
     status: 404,
-    code: 'notFound'
+    code: 'invalid_endpoint'
   });
 });
 

@@ -1,0 +1,23 @@
+<%- '<!DOCTYPE html>' %>
+<html lang="en">
+
+<head>
+  <title>Authenticate</title>
+  <script>
+    window.onload = () => {
+      let id = window.location.pathname.split('/').pop();
+
+      if (!id || id === 'authenticate') return window.location.pathname = '/';
+
+      let key = prompt('Please input the image key.');
+
+      if (!key) return window.location.pathname = '/';
+
+      return window.location.pathname = '/uploads/' + id + '/' + key;
+    };
+  </script>
+</head>
+
+<body></body>
+
+</html>

@@ -4,11 +4,13 @@ window.onload = async () => {
    * TODO: Add more client side sanitization/validation
    */
 
+  let app = document.querySelector('div#app');
   let drag = document.querySelector('div#drag');
   let form = document.querySelector('form#form');
   let button = document.querySelector('label#upload');
   let input = button.querySelector('input#image');
   let buttonText = button.querySelector('span#text');
+  let deleteButton = document.querySelector('a#delete');
 
   let dragging = 0;
 
@@ -17,7 +19,7 @@ window.onload = async () => {
   input.addEventListener('change', () => {
     if (input.files.length <= 0) return alert('Please select an image.');
     buttonText.innerHTML = 'Uploading...';
-    button.classList.add('uploading');
+    app.classList.add('uploading');
     form.submit();
   });
 
@@ -57,6 +59,14 @@ window.onload = async () => {
     form.submit();
   });
 
+  deleteButton.addEventListener('click', () => {
+    let image = prompt('Input the ID of the image you wish to delete.');
+
+    if (!image) return alert('Please input an ID.');
+
+    return window.location.replace('https://kim.kieranhowland.cc/delete/' + image);
+  });
+
   buttonText.innerHTML = 'Upload Image';
-  button.classList.remove('uploading');
+  app.classList.remove('uploading');
 };

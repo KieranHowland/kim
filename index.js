@@ -1,19 +1,44 @@
 require('dotenv').config();
 
 const express = require('express');
-const fs = require('fs');
+const mongoose = require('mongoose');
 const uniq = require('uniqid');
 
 const app = express();
 const settings = require('./settings');
+const schemas = require('./schemas');
+
+const Error = mongoose.model('error', schemas.Error);
+
+mongoose.connect(`mongodb://${process.env.MONGOURL}:27017/${process.env.MONGODB}`, {
+  auth: {
+    authSource: 'admin'
+  },
+  user: process.env.MONGOUSER,
+  pass: process.env.MONGOPASS,
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+mongoose.Promise = global.Promise;
+
+mongoose.connection.on('error', console.error.bind(console, 'Connection Error:'));
+mongoose.connection.once('open', () => {
+  console.log('Connected to database!');
+});
 
 app.set('view engine', 'ejs');
 
 app.use(require('express-fileupload')({
   limits: {
-    fileSize: 20 * 1024 * 1024
+    fileSize: 15 * 1024 * 1024
   }
 }));
+app.use(require('body-parser').urlencoded({
+  extended: false
+}));
+app.use(require('body-parser').json());
+app.use(require('cookie-parser')());
 app.use(require('helmet')());
 app.use(require('compression')());
 
@@ -22,7 +47,8 @@ app.use('/', express.static('./static/root'));
 
 app.use('/', require('./routes/index'));
 app.use('/api', require('./routes/api'));
-app.use('/admin', require('./routes/admin'));
+app.use('/login', require('./routes/login'));
+app.use('/dashboard', require('./routes/dashboard'));
 
 app.use((req, res, next) => {
   res.status(404).render('info', {
@@ -33,14 +59,19 @@ app.use((req, res, next) => {
   });
 });
 
-app.use((err, req, res, next) => {
-  if (!err) return;
+app.use((error, req, res, next) => {
+  if (!error) next();
 
-  err.id = uniq();
+  error.id = uniq();
 
-  fs.writeFileSync(`${__dirname}/errors/${err.id}.txt`, `Error ID: ${err.id}\nError Time: ${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}\n\n---START OF ERROR---\n${err.stack}\n----END OF ERROR----`);
-
-  res.status(500).send(`An internal server error occured, please copy the code below and send it to <b>@KieranHowland</b> on Twitter...<br><br>${err.id}`);
+  Error.create({
+    _id: error.id,
+    data: error.stack
+  }, (err) => {
+    if (err) console.error(err.stack);
+    console.log(error);
+    return res.status(500).send(`A fatal server error occured. Please send this code: '${error.id}' to '@KieranHowland' on Twitter or in an email to 'kieran.howland@mail.com'.`);
+  });
 });
 
 app.listen(settings.port, '0.0.0.0');

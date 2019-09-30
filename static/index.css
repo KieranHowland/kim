@@ -26,13 +26,16 @@
   }
 }
 
+* {
+  font-family: 'Google Sans', sans-serif !important;
+}
+
 body {
   width: 100%;
   height: 100%;
   margin: 0;
   animation: load .2s ease-in-out 1;
   background: rgb(17, 17, 20);
-  font-family: 'Google Sans', sans-serif;
   color: rgb(255, 255, 255);
   user-select: none;
   -moz-user-select: none;
@@ -58,6 +61,7 @@ a {
   padding: 2px 6px;
   border-radius: 4px;
   text-decoration: none;
+  cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: all .2s ease-in-out;
 }
@@ -84,9 +88,8 @@ label#upload {
   background: rgb(26, 26, 29);
   color: rgb(255, 255, 255);
   text-align: left;
-  border-radius: 8px;
+  border-radius: 8px 8px 0 0;
   padding: 8px 16px;
-  margin: 0 0 16px 0;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: .2s ease-in-out;
@@ -106,12 +109,12 @@ label#upload span#text {
   font-size: 1.1em;
 }
 
-label#upload.uploading {
+div#app.uploading label#upload {
   background: transparent;
   pointer-events: none;
 }
 
-label#upload.uploading span#text {
+div#app.uploading span#text {
   margin: 0 0 0 8px;
 }
 
@@ -119,11 +122,11 @@ label#upload span#accepted {
   font-size: 0.7em;
 }
 
-label#upload.uploading span#accepted {
+div#app.uploading span#accepted {
   display: none;
 }
 
-label#upload div#loading {
+div#app div#loading {
   display: none;
   width: 16px;
   height: 16px;
@@ -134,7 +137,7 @@ label#upload div#loading {
   float: left;
 }
 
-label#upload.uploading div#loading {
+div#app.uploading div#loading {
   display: inline-block;
 }
 
@@ -174,4 +177,42 @@ div#build {
   color: rgb(255, 255, 255, 0.1);
   margin: 0 8px 4px 0;
   transition: .2s;
+}
+
+form#form {
+  display: inline-grid;
+}
+
+input#key {
+  color: white;
+  background: rgb(26, 26, 29);
+  border: none;
+  outline: none;
+  border-top: 1px solid rgb(34, 34, 37);
+  border-radius: 0 0 8px 8px;
+  padding: 6px 8px;
+  margin: 0 0 16px 0;
+  transition: .2s;
+}
+
+input#key:hover {
+  background: rgb(30, 30, 33);
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.4);
+}
+
+input#key:focus {
+  background: rgb(24, 24, 27);
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+div#app.uploading input#key {
+  display: none;
+}
+
+div#app.uploading div#links {
+  display: none;
+}
+
+div#app.uploading p#title {
+  display: none;
 }
