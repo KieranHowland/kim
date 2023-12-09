@@ -1,11 +1,19 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-module.exports = new mongoose.Schema(
+interface IImage {
+  data: Buffer;
+  meta: {
+    uploaded: Date;
+    type: {
+      mime?: string;
+      ext?: string;
+    };
+  };
+  key?: string;
+};
+
+const imageSchema = new mongoose.Schema(
   {
-    _id: {
-      type: String,
-      required: true
-    },
     data: {
       type: Buffer,
       required: true
@@ -13,6 +21,7 @@ module.exports = new mongoose.Schema(
     meta: {
       uploaded: {
         type: Date,
+        default: Date.now,
         required: true
       },
       type: {
@@ -24,10 +33,6 @@ module.exports = new mongoose.Schema(
         }
       }
     },
-    uploader: {
-      type: String,
-      required: true
-    },
     key: {
       type: String,
       required: false
@@ -37,3 +42,5 @@ module.exports = new mongoose.Schema(
     collection: 'images'
   }
 );
+
+export default mongoose.model<IImage>('Image', imageSchema);

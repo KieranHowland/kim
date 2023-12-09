@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const uniq = require('uniqid');
 
 const router = express.Router();
-const schemas = require('../schemas');
+const schemas = require('../src/schemas');
 
 const User = mongoose.model('user', schemas.User);
 const Session = mongoose.model('session', schemas.Session);

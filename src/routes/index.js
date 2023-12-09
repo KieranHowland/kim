@@ -1,12 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const uniq = require('uniqid');
 const fileType = require('file-type');
 
 const router = express.Router();
 const settings = require('../settings');
-const schemas = require('../schemas');
+const schemas = require('../src/schemas');
 
 const Image = mongoose.model('image', schemas.Image);
 
@@ -15,7 +14,6 @@ router.get('/', (req, res) => {
 });
 
 router.post('/upload', (req, res) => {
-  req.files.image.id = uniq();
   req.files.image.type = fileType(req.files.image.data);
 
   if (!req.files || req.files === null) return res.status(400).render('info', {

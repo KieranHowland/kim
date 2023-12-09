@@ -5,7 +5,7 @@ const uniq = require('uniqid');
 
 const router = express.Router();
 const settings = require('../settings');
-const schemas = require('../schemas');
+const schemas = require('../src/schemas');
 
 const Image = mongoose.model('image', schemas.Image);
 

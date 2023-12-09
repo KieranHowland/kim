@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const router = express.Router();
-const schemas = require('../schemas');
+const schemas = require('../src/schemas');
 
 const Image = mongoose.model('image', schemas.Image);
 const User = mongoose.model('user', schemas.User);
